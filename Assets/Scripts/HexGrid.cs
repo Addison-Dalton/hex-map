@@ -63,6 +63,7 @@ public class HexGrid : MonoBehaviour
 
   void TouchCell (Vector3 position) {
     position = transform.InverseTransformPoint(position);
-    Debug.Log("touched at " + position);
+    HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+    Debug.Log("touched at " + coordinates.ToString());
   }
 }
