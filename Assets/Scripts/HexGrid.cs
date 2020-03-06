@@ -42,6 +42,24 @@ public class HexGrid : MonoBehaviour
     cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
     cell.color = defaultColor;
 
+    // init cell linking
+    if (x > 0) {
+      cell.SetNeightbor(HexDirection.W, cells[i - 1]);
+    }
+    if (z > 0) {
+      if ((z & 1) == 0) {
+        cell.SetNeightbor(HexDirection.SE, cells[i - width]);
+        if (x > 0) {
+          cell.SetNeightbor(HexDirection.SW, cells[i - width - 1]);
+        }
+      } else {
+        cell.SetNeightbor(HexDirection.SW, cells[i - width]);
+        if (x < width -1) {
+          cell.SetNeightbor(HexDirection.SE, cells[i - width + 1]);
+        }
+      }
+    }
+
     // Label stuff
     Text label = Instantiate<Text>(cellLabelPrefab);
     label.rectTransform.SetParent(gridCanvas.transform, false);
